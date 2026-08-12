@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Navbar from './components/Navbar';
+
 
 export const metadata: Metadata = {
   title: 'Story Weaver Hub',
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="bg-neutral-950 text-neutral-100 antialiased">
-        <Navbar />
+       
         {children}
       </body>
     </html>

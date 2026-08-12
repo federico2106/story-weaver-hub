@@ -1,105 +1,133 @@
-import AgeVerification from './components/AgeVerification';
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
+  const [selectedGenre, setSelectedGenre] = useState('todos');
+
+  const characters = [
+    {
+      id: 'elena',
+      name: 'Elena',
+      genre: 'romance',
+      genreLabel: 'Romance Profundo',
+      image: '/elena.jpg',
+      description: 'Encuentra compañía nocturna y una cercanía que se construye paso a paso.',
+      href: '/chat/elena',
+      badge: '✨ Destacado',
+    },
+    {
+      id: 'samantha',
+      name: 'Samantha',
+      genre: 'drama',
+      genreLabel: 'Drama Íntimo',
+      image: '/samantha.jpg',
+      description: 'Atenta, analítica y dispuesta a descifrar cada capa de tus pensamientos.',
+      href: '/chat/samantha',
+      badge: 'Nuevo',
+    },
+  ];
+
+  const filteredCharacters = selectedGenre === 'todos' 
+    ? characters 
+    : characters.filter(char => char.genre === selectedGenre);
+
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100 p-6 max-w-5xl mx-auto">
-      <AgeVerification />
+    <div className="min-h-screen bg-neutral-950 text-white">
       
-      {/* Encabezado Principal */}
-      <section className="mb-12 text-center py-8">
-        <h1 className="text-4xl font-extrabold tracking-wider text-white">STORY WEAVER HUB</h1>
-        <p className="text-neutral-400 mt-2 text-sm sm:text-base">Compañía, relatos y vínculos profundos</p>
-        <span className="inline-block mt-4 bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs px-3 py-1 rounded-full">
-          Modo Seguro (+18)
-        </span>
-      </section>
-
-      {/* Sección de Personajes - Diseño Inmersivo */}
-      <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 border-b border-neutral-800 pb-2">Elige tu compañía</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* BARRA DE NAVEGACIÓN PRINCIPAL (ÚNICA) */}
+      <header className="w-full border-b border-neutral-900 bg-neutral-950/90 backdrop-blur-md sticky top-0 z-50 px-8 py-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-8">
+  <Link href="/" className="font-extrabold tracking-wider text-lg text-white">
+  STORY WEAVER <span className="text-xs font-bold text-pink-500 tracking-widest ml-1 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">HUB</span>
+</Link>
+            <nav className="hidden md:flex space-x-6 text-sm text-neutral-400 font-medium">
+              <Link href="/" className="text-white hover:text-white transition-colors">Inicio</Link>
+              <Link href="/tienda" className="hover:text-white transition-colors">Tienda</Link>
+              <Link href="/relatos" className="hover:text-white transition-colors">Relatos</Link>
+            </nav>
+          </div>
           
-          {/* Tarjeta Samantha - Fondo Inmersivo */}
-          <article className="relative h-96 rounded-2xl overflow-hidden group shadow-xl border border-neutral-800">
-            {/* Imagen de Fondo (asegúrate de tener la imagen en /public/samantha.jpg) */}
-            <img 
-              src="/samantha.jpg" 
-              alt="Samantha" 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            
-            {/* Degradado para legibilidad del texto */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-
-            {/* Contenido de la tarjeta superpuesto */}
-            <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <div className='flex justify-end'>
-                  <span className="text-xs font-semibold text-pink-500 uppercase tracking-wider bg-black/50 px-2 py-1 rounded">Romance profundo</span>
-              </div>
-              <div className='text-left'>
-                <h3 className="text-3xl font-bold text-white drop-shadow-lg">Samantha</h3>
-                <p className="text-sm text-neutral-300 mt-2 max-w-sm drop-shadow-sm">
-                  Atenta, analítica y con una cercanía que se construye paso a paso.
-                </p>
-                <a 
-                  href="/chat/samantha" 
-                  className="mt-6 inline-block bg-white text-neutral-950 font-semibold py-3 px-6 rounded-full hover:bg-neutral-200 transition text-sm shadow-lg"
-                >
-                  Iniciar Conversación
-                </a>
-              </div>
-            </div>
-          </article>
-
-          {/* Tarjeta Elena - Fondo Inmersivo (Mismo estilo) */}
-          <article className="relative h-96 rounded-2xl overflow-hidden group shadow-xl border border-neutral-800">
-            <img 
-              src="/elena.jpg" 
-              alt="Elena" 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <div className='flex justify-end'>
-                  <span className="text-xs font-semibold text-purple-500 uppercase tracking-wider bg-black/50 px-2 py-1 rounded">Compañía nocturna</span>
-              </div>
-              <div className='text-left'>
-                <h3 className="text-3xl font-bold text-white drop-shadow-lg">Elena</h3>
-                <p className="text-sm text-neutral-300 mt-2 max-w-sm drop-shadow-sm">
-                  Intensa, directa y dispuesta a explorar los límites de la confianza mutua.
-                </p>
-                <a 
-                  href="/chat/elena" 
-                  className="mt-6 inline-block bg-white text-neutral-950 font-semibold py-3 px-6 rounded-full hover:bg-neutral-200 transition text-sm shadow-lg"
-                >
-                  Iniciar Conversación
-                </a>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      {/* Sección de Relatos Recientes */}
-      <section>
-        <h2 className="text-xl font-bold mb-6 border-b border-neutral-800 pb-2">Relatos Recientes</h2>
-        <div className="space-y-4">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h3 className="font-bold text-lg text-white">Ecos de Medianoche</h3>
-              <p className="text-sm text-neutral-400 mt-1">Un capítulo exclusivo explorando los recuerdos más íntimos.</p>
-              <span className="text-xs text-neutral-500 mt-2 inline-block">Duración: 14:30</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-medium px-4 py-2 rounded-lg transition">
-                Escuchar audio
-              </button>
-            </div>
+          <div className="flex items-center space-x-4">
+            <Link 
+              href="/ingresar" 
+              className="bg-neutral-900 border border-neutral-800 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-neutral-800 transition-colors"
+            >
+              Ingresar
+            </Link>
           </div>
         </div>
-      </section>
+      </header>
 
-    </main>
+      {/* CONTENIDO PRINCIPAL */}
+      <main className="p-8 max-w-6xl mx-auto pt-12">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-neutral-900/80 border border-neutral-800 px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 mb-6 shadow-inner">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>+1,420 usuarios conversando ahora mismo</span>
+          </div>
+          <h1 className="text-4xl font-extrabold tracking-tight mb-4">Elige tu compañía</h1>
+          <p className="text-neutral-400">Explora mundos narrativos profundos y conversaciones íntimas.</p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+          {[
+            { id: 'todos', label: 'Todos' },
+            { id: 'romance', label: 'Romance' },
+            { id: 'terror', label: 'Terror' },
+            { id: 'sci-fi', label: 'Sci-Fi' },
+            { id: 'drama', label: 'Drama' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSelectedGenre(tab.id)}
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                selectedGenre === tab.id
+                  ? 'bg-white text-neutral-950 shadow-lg scale-105'
+                  : 'bg-neutral-900 text-neutral-300 border border-neutral-800 hover:border-neutral-600 hover:text-white'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {filteredCharacters.map((char) => (
+            <Link key={char.id} href={char.href} className="group">
+              <article className="relative h-96 rounded-3xl overflow-hidden shadow-2xl shadow-black/40 ring-2 ring-neutral-800/50 hover:ring-neutral-600/80 transition-all duration-700 ease-out hover:scale-105">
+                <img
+                  src={char.image}
+                  alt={char.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
+                  <div className="flex justify-between items-center w-full">
+                    <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                      {char.badge}
+                    </span>
+                    <span className="text-xs font-semibold text-pink-400 uppercase tracking-wider">
+                      {char.genreLabel}
+                    </span>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-3xl text-white mb-2">{char.name}</h2>
+                    <p className="text-sm text-white/90 mb-4 line-clamp-2">
+                      {char.description}
+                    </p>
+                    <span className="inline-block bg-white text-neutral-950 px-6 py-2.5 rounded-full font-semibold text-sm transition-colors group-hover:bg-neutral-200">
+                      Iniciar Conversación
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </main>
+    </div>
   );
 }
