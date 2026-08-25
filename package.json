@@ -11,6 +11,8 @@
   "dependencies": {
     "@ai-sdk/openai": "^4.0.37",
     "@ai-sdk/react": "^4.0.62",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "ai": "^7.0.59",
     "next": "^14.2.5",
     "react": "^18.2.0",
