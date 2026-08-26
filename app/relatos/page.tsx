@@ -53,7 +53,9 @@ export default function RelatosPage() {
     checkAuth()
   }, [router])
 
-  if (loading) return <div className="bg-gray-950 h-screen text-white p-10">Cargando...</div>
+  if (loading) {
+    return <div className="bg-gray-950 h-screen text-white p-10">Cargando...</div>
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
