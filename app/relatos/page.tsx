@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
 
-// Base de datos de relatos de ejemplo
 const storiesList = [
   {
     id: 1,
@@ -41,12 +40,14 @@ export default function RelatosPage() {
 
   useEffect(() => {
     async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
+      const { data } = await supabase.auth.getUser()
+      const authUser = data?.user
+      
+      if (!authUser) {
         router.push('/login')
         return
       }
-      setUser(user)
+      setUser(authUser)
       setLoading(false)
     }
     checkAuth()
@@ -56,7 +57,6 @@ export default function RelatosPage() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-      {/* Cabecera */}
       <header className="flex items-center justify-between px-8 py-6 border-b border-gray-800 bg-gray-900/50">
         <Link href="/" className="text-gray-400 hover:text-white text-sm font-semibold">
           ← Volver al inicio
@@ -65,7 +65,6 @@ export default function RelatosPage() {
         <div className="w-20"></div>
       </header>
 
-      {/* Contenido Principal */}
       <main className="flex-1 max-w-5xl w-full mx-auto p-6 md:p-10">
         <div className="mb-8">
           <h2 className="text-2xl font-black mb-2">Historias y Capítulos Exclusivos</h2>
