@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { User } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 
 const storiesList = [
   {
@@ -36,19 +36,25 @@ const storiesList = [
 export default function RelatosPage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     async function checkAuth() {
-      const { data } = await supabase.auth.getUser()
-      const authUser = data?.user
-      
-      if (!authUser) {
+      try {
+        const { data: { user: authUser }, error } = await supabase.auth.getUser()
+        
+        if (error || !authUser) {
+          router.push('/login')
+          return
+        }
+        
+        setUser(authUser)
+      } catch (err) {
+        console.error('Error de autenticación:', err)
         router.push('/login')
-        return
+      } finally {
+        setLoading(false)
       }
-      setUser(authUser)
-      setLoading(false)
     }
     checkAuth()
   }, [router])
