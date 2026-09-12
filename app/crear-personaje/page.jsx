@@ -68,7 +68,12 @@ export default function CrearPersonajePage() {
     }
 
     const { data: { session } } = await supabase.auth.getSession()
-    const activeUser = session ? (session.user.email || session.user.id) : 'linarifederico'
+    const activeUser = session ? session.user.id : null
+
+    if (!activeUser) {
+      alert('Necesitás iniciar sesión para crear un personaje.')
+      return
+    }
 
     const newCharId = name.toLowerCase().replace(/\s+/g, '-')
     

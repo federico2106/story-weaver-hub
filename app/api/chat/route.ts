@@ -32,7 +32,7 @@ async function getAIReply(characterId: string, conversationHistory: { sender: st
     },
     body: JSON.stringify({
       // Modelo económico para arrancar. Se puede cambiar después por otro de OpenRouter.
-      model: 'meta-llama/llama-3.1-8b-instruct:free',
+      model: 'inclusionai/ling-3.0-flash-vl:free',
       messages
     })
   });
