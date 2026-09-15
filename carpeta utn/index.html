@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Curso Ingreso UTN FRA</title>
+		<script type="text/javascript" src="practicaCovid.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script type="permiso.js"></script>
+	</head>
+	<body>
+        <div class="container">
+        <div class="alert alert-warning  " style="margin-top: 20px;margin-bottom: : 20px;" role="alert">
+            <h4 class="alert-heading">Permisos para circular</h4>
+            <hr>
+            <p>Se necesita informar dependiendo las opciones llenadas en el formulario quien puede movilizarse o resguardarse.<br>
+            Si es la residencia es de buenos aires consultar por confirm si pertenece a la zona de amba. <br>
+            Si la persona es mayor de 60, no importa la profesión que tenga, el mensaje a mostrar es : No puede transitar, es persona de riesgo quédese en su casa. <br>
+            Si la persona es Médico y menor de 25 : Usted es muy joven para ser médico<br>
+            Si la persona es enfermero o almacenero entre 27 y 60 años: Usted puede transitar<br>
+            Si la persona es entrenador, profesor, abogado o programador y reside en la zona de amba y tiene entre 20 y 60 años, el mensaje es : Solo salí para compras esenciales.<br>
+            Si la persona es menor de 15 años, no importa donde resida, y tiene una profesión distinta a ser alumno: Es muy chico para tener una profesión<br>
+            Si la persona es menor de 15 años, no importa donde resida, y es alumno: Respeta y colabora en tu casa, ya pronto volveremos a la escuela<br>
+            Si la persona es mayor de 15 años y reside en otro lugar q no sea el amba: Usa el barbijo para transitar!<br></p>
+            <hr>
+            <p class="mb-0">Si tenes alguna duda, consulta por <b> slack!! </b></p>
+        </div>
+        
+
+        <label for="basic-url">Ingrese su edad</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ingrese solo números </span>
+            </div>
+            <input type="text" class="form-control" id="edadTxtId" aria-describedby="basic-addon3">
+        </div>
+
+        <label for="basic-url">Ingrese su profesión</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Profesión</label>
+          </div>
+          <select class="custom-select" id="profesionSelectId">
+            <option selected>Elegir</option>
+            <option value="1">Medico</option>
+            <option value="2">Enfermero</option>
+            <option value="3">Abogado</option>
+            <option value="3">Entrenador</option>
+            <option value="3">Almacenero</option>
+            <option value="3">Profesor</option>
+            <option value="3">Programador</option>
+            <option value="3">Alumno</option>
+          </select>
+        </div>
+        <label for="basic-url">Ingrese su residencia</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Residencia</label>
+          </div>
+          <select class="custom-select" id="residenciaSelectId">
+            <option selected>Elegir el lugar</option>
+            <option value="1">Buenos Aires</option>
+            <option value="2">Santa Fe</option>
+            <option value="3">Entre Rios</option>
+            <option value="3">Tucuman</option>
+            <option value="3">Rio Negro</option>
+            <option value="3">Tierra del Fuego</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn-primary " onclick="probarEjercicio()">Probar el ejercicio</button>
+        </div>
+        
+       
+
+
+
+
+    </body>
+</html>
