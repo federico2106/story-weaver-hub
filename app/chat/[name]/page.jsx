@@ -138,12 +138,21 @@ export default function ChatPage() {
       let found = initialCharacters.find(c => c.id.toLowerCase() === cleanId)
 
       if (!found) {
-        const savedCustom = localStorage.getItem(`custom_chars_${user.id}`)
-        if (savedCustom) {
-          try {
-            const customList = JSON.parse(savedCustom)
-            found = customList.find(c => c.id.toLowerCase() === cleanId)
-          } catch (e) {}
+        const { data: customChar } = await supabase
+          .from('custom_characters')
+          .select('slug, name, subtitle, image_url, description')
+          .eq('user_id', user.id)
+          .eq('slug', cleanId)
+          .maybeSingle()
+
+        if (customChar) {
+          found = {
+            id: customChar.slug,
+            name: customChar.name,
+            subtitle: customChar.subtitle,
+            image: customChar.image_url,
+            description: customChar.description
+          }
         }
       }
 

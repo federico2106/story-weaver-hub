@@ -48,8 +48,43 @@ export default function HomePage() {
       setUser(user)
       setLoading(false)
       if (user) {
-        const savedCustom = localStorage.getItem(`custom_chars_${user.id}`)
-        if (savedCustom) { try { setCustomCharacters(JSON.parse(savedCustom)) } catch (e) {} }
+        // Importación única: si hay personajes viejos guardados en localStorage
+        // (de antes de migrar a Supabase), se suben a la tabla una sola vez.
+        const storageKey = `custom_chars_${user.id}`
+        const savedCustom = localStorage.getItem(storageKey)
+
+        if (savedCustom) {
+          try {
+            const legacyList = JSON.parse(savedCustom)
+            if (Array.isArray(legacyList) && legacyList.length > 0) {
+              const rows = legacyList.map((c: any) => ({
+                user_id: user.id,
+                slug: c.id,
+                name: c.name,
+                subtitle: c.subtitle,
+                image_url: c.image,
+                description: c.description
+              }))
+              await supabase.from('custom_characters').upsert(rows, { onConflict: 'user_id,slug', ignoreDuplicates: true })
+            }
+          } catch (e) {}
+          localStorage.removeItem(storageKey)
+        }
+
+        const { data: customData } = await supabase
+          .from('custom_characters')
+          .select('slug, name, subtitle, image_url, description')
+          .eq('user_id', user.id)
+
+        if (customData) {
+          setCustomCharacters(customData.map(c => ({
+            id: c.slug,
+            name: c.name,
+            subtitle: c.subtitle,
+            image: c.image_url,
+            description: c.description
+          })))
+        }
       }
     }
     init()

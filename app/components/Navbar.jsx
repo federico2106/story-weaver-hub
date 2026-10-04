@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { trackOnlineUser } from '@/lib/presence'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -35,6 +36,12 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Presence: marca a este usuario como "conectado ahora" para el panel de admin
+  useEffect(() => {
+    if (!user) return
+    trackOnlineUser({ user_id: user.id, online_at: new Date().toISOString() })
+  }, [user])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

@@ -90,18 +90,23 @@ export default function CrearPersonajePage() {
       description: `${persObj?.desc}. Pelo ${selectedHair}, ojos ${selectedEyes}. Cuerpo: ${selectedBodyType}, Busto: ${selectedBustSize}. ${lore}`
     }
 
-    const storageKey = `custom_chars_${activeUser}`
-    const existingCustom = localStorage.getItem(storageKey)
-    let parsedList = []
-    
-    if (existingCustom) {
-      try {
-        parsedList = JSON.parse(existingCustom)
-      } catch (err) {}
-    }
+    const { error: insertError } = await supabase.from('custom_characters').insert({
+      user_id: activeUser,
+      slug: newCharacter.id,
+      name: newCharacter.name,
+      subtitle: newCharacter.subtitle,
+      image_url: newCharacter.image,
+      description: newCharacter.description
+    })
 
-    parsedList.push(newCharacter)
-    localStorage.setItem(storageKey, JSON.stringify(parsedList))
+    if (insertError) {
+      if (insertError.code === '23505') {
+        alert('Ya tenés un personaje con ese nombre. Elegí otro.')
+      } else {
+        alert('No se pudo guardar el personaje: ' + insertError.message)
+      }
+      return
+    }
 
     alert(`¡Personaje "${name}" creado con éxito! Ya puedes chatear.`)
     router.push('/')
