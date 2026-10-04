@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={`bg-neutral-950 text-neutral-100 antialiased ${spaceGrotesk.variable}`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
